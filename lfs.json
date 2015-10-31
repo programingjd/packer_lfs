@@ -1,0 +1,86 @@
+{
+    "variables": {
+        "username": "lfs",
+        "password": "lfs"
+    },
+    "builders": [
+        {
+            "name": "lfs",
+            "vm_name": "lfs",
+            "type": "virtualbox-iso",
+            "guest_os_type": "Linux_64",
+            "iso_urls": [
+                "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso"
+            ],
+            "iso_checksum": "923cd1bfbfa62d78aecaa92d919ee54a95c8fca834b427502847228cf06155e7243875f59279b0bf6bfd1b579cbe2f1bc80528a265dafddee9a9d2a197ef3806",
+            "iso_checksum_type": "sha512",
+            "disk_size": "12288",
+            "hard_drive_interface": "sata",
+            "guest_additions_mode": "disable",
+            "ssh_username": "{{user `username`}}",
+            "ssh_password": "{{user `password`}}",
+            "ssh_wait_timeout": "6000s",
+            "http_directory": "./src/main/resources",
+            "boot_command": [
+                "<esc><wait>",
+                "auto ",
+                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+                "<enter>"
+            ],
+            "boot_wait": "5s",
+            "shutdown_command": "sudo -S /sbin/shutdown -hP now",
+            "shutdown_timeout": "300s",
+            "vboxmanage": [
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--memory",
+                    6144
+                ],
+                [
+                    "modifyvm",
+                    "{{.Name}}",
+                    "--cpus",
+                    5
+                ]
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "scripts": [
+                "src/main/resources/setup.sh",
+                "src/main/resources/binutils1.sh",
+                "src/main/resources/gcc1.sh",
+                "src/main/resources/linux_api_headers.sh",
+                "src/main/resources/glibc.sh",
+                "src/main/resources/libstd.sh",
+                "src/main/resources/binutils2.sh",
+                "src/main/resources/gcc2.sh",
+                "src/main/resources/ncurses.sh",
+                "src/main/resources/bash.sh",
+                "src/main/resources/bzip2.sh",
+                "src/main/resources/coreutils.sh",
+                "src/main/resources/diffutils.sh",
+                "src/main/resources/file.sh",
+                "src/main/resources/findutils.sh",
+                "src/main/resources/gawk.sh",
+                "src/main/resources/gettext.sh",
+                "src/main/resources/grep.sh",
+                "src/main/resources/gzip.sh",
+                "src/main/resources/m4.sh",
+                "src/main/resources/make.sh",
+                "src/main/resources/patch.sh",
+                "src/main/resources/perl.sh",
+                "src/main/resources/sed.sh",
+                "src/main/resources/tar.sh",
+                "src/main/resources/texinfo.sh",
+                "src/main/resources/util_linux.sh",
+                "src/main/resources/xz.sh",
+                "src/main/resources/strip.sh",
+                "src/main/resources/rootssh.sh"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "builders": [
+        {
+            "name": "lfs3",
+            "vm_name": "lfs3",
+            "type": "virtualbox-ovf",
+            "source_path": "output-lfs2/lfs2.ovf",
+            "guest_additions_mode": "disable",
+            "ssh_username": "root",
+            "ssh_password": "packer",
+            "boot_wait": "500s",
+            "shutdown_command": "sudo /sbin/shutdown -hP now"
+        }
+    ],
+    "provisioners": [
+        
+    ]
+}

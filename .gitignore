@@ -1,0 +1,17 @@
+/build
+*.class
+hs_err_pid*
+
+.DS_Store
+Thumbs.db
+
+/.idea
+*.iml
+
+/.gradle
+
+local.properties
+
+/packer_cache
+/output-lfs*
+/tmp
